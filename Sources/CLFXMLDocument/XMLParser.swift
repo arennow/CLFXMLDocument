@@ -7,13 +7,8 @@
 // See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
 //
 
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
-import SwiftFoundation
-import CFXMLInterface
-#else
 import Foundation
 @_implementationOnly import CFXMLInterface
-#endif
 @_implementationOnly import CoreFoundation
 
 extension XMLParser {
@@ -386,7 +381,7 @@ internal func _NSXMLParserExternalSubset(_ ctx: _CFXMLInterface, name: UnsafePoi
 
 internal func _structuredErrorFunc(_ interface: _CFXMLInterface, error: _CFXMLInterfaceError) {
     let cferr = _CFErrorCreateFromXMLInterface(error)
-    let err = _CFErrorSPIForFoundationXMLUseOnly(unsafelyAssumingIsCFError: cferr)._nsObject
+    let err = cferr as any Error
     let parser = interface.parser
     parser._parserError = err
     if let delegate = parser.delegate {
@@ -1032,7 +1027,6 @@ extension NSObject {
 func setupXMLParsing() {
     _CFSetupXMLInterface()
     _CFSetupXMLBridgeIfNeededUsingBlock {
-        __CFSwiftXMLParserBridge.CFBridge = CF.originalBridge
         __CFSwiftXMLParserBridge.currentParser = _NSXMLParserCurrentParser
         __CFSwiftXMLParserBridge._xmlExternalEntityWithURL = _NSXMLParserExternalEntityWithURL
         __CFSwiftXMLParserBridge.getContext = _NSXMLParserGetContext

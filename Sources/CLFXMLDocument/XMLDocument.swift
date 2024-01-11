@@ -7,11 +7,7 @@
 // See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
 //
 
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
-import SwiftFoundation
-#else
 import Foundation
-#endif
 @_implementationOnly import CoreFoundation
 @_implementationOnly import CFXMLInterface
 
@@ -370,7 +366,7 @@ open class XMLDocument : XMLNode {
         if !result,
             let unmanagedError = unmanagedError {
             let error = unmanagedError.takeRetainedValue()
-            throw _CFErrorSPIForFoundationXMLUseOnly(unsafelyAssumingIsCFError: error)._nsObject
+            throw error
         }
     }
 

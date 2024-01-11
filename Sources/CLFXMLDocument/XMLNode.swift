@@ -8,13 +8,8 @@
 //
 
 //import libxml2
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
-import SwiftFoundation
-import CFXMLInterface
-#else
 import Foundation
 @_implementationOnly import CFXMLInterface
-#endif
 @_implementationOnly import CoreFoundation
 
 // initWithKind options
@@ -843,9 +838,6 @@ open class XMLNode: NSObject, NSCopying {
         
         var result: [XMLNode] = []
         
-        let CFArrayGetCount = unsafeBitCast(CF.CFArrayGetCount, to: (@convention(c) (CFArray) -> CFIndex).self)
-        let CFArrayGetValueAtIndex = unsafeBitCast(CF.CFArrayGetValueAtIndex, to: (@convention(c) (CFArray, CFIndex) -> UnsafeRawPointer?).self)
-
         for i in 0..<CFArrayGetCount(nodes) {
             let nodePtr = CFArrayGetValueAtIndex(nodes, i)!
             result.append(XMLNode._objectNodeForNode(_CFXMLNodePtr(mutating: nodePtr)))
