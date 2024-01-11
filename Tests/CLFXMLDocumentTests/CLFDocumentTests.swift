@@ -20,10 +20,10 @@ final class CLFDocumentTests: XCTestCase {
 		</animals>
 		"""
 		
-		let doc = try XMLDocument(xmlString: src)
+		let doc = try CLFXMLDocument.XMLDocument(xmlString: src)
 		
 		XCTAssertEqual(doc.childCount, 1)
 		XCTAssertEqual(doc.child(at: 0)?.childCount, 2)
-		XCTAssertEqual(try (doc.nodes(forXPath: "/animals/cats/*").first as? XMLElement)?.attribute(forName: "breed")?.stringValue, "Siberian")
+		XCTAssertEqual(try (doc.nodes(forXPath: "/animals/cats/*").first as? CLFXMLDocument.XMLElement)?.attribute(forName: "breed")?.stringValue, "Siberian")
 	}
 }
