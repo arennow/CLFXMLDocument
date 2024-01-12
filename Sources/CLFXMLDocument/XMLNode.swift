@@ -9,7 +9,15 @@
 
 //import libxml2
 import Foundation
-@_implementationOnly import CFXMLInterface
+
+#if os(Linux)
+import FoundationXML
+public typealias XMLNode = FoundationXML.XMLNode
+#elseif os(OSX)
+public typealias XMLNode = Foundation.XMLNode
+#else
+
+@_implementationOnly import CoreImplementation
 @_implementationOnly import CoreFoundation
 
 // initWithKind options
@@ -1062,3 +1070,5 @@ extension XMLNode.Index {
         }
     }
 }
+
+#endif

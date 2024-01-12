@@ -8,8 +8,16 @@
 //
 
 import Foundation
+
+#if os(Linux)
+import FoundationXML
+public typealias XMLElement = FoundationXML.XMLElement
+#elseif os(OSX)
+public typealias XMLElement = Foundation.XMLElement
+#else
+
 @_implementationOnly import CoreFoundation
-@_implementationOnly import CFXMLInterface
+@_implementationOnly import CoreImplementation
 
 /*!
     @class XMLElement
@@ -420,3 +428,5 @@ extension XMLElement {
     @available(*, unavailable, renamed:"setAttributesWith")
     public func setAttributesAs(_ attributes: [NSObject : AnyObject]) { NSUnsupported() }
 }
+
+#endif

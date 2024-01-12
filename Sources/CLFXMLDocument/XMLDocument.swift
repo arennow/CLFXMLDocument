@@ -8,8 +8,16 @@
 //
 
 import Foundation
+
+#if os(Linux)
+import FoundationXML
+public typealias XMLDocument = FoundationXML.XMLDocument
+#elseif os(OSX)
+public typealias XMLDocument = Foundation.XMLDocument
+#else
+
 @_implementationOnly import CoreFoundation
-@_implementationOnly import CFXMLInterface
+@_implementationOnly import CoreImplementation
 
 // Input options
 //  NSXMLNodeOptionsNone
@@ -384,3 +392,4 @@ open class XMLDocument : XMLNode {
         super.init(ptr: ptr)
     }
 }
+#endif

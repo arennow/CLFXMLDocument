@@ -8,8 +8,16 @@
 //
 
 import Foundation
+
+#if os(Linux)
+import FoundationXML
+public typealias XMLDTD = FoundationXML.XMLDTD
+#elseif os(OSX)
+public typealias XMLDTD = Foundation.XMLDTD
+#else
+
 @_implementationOnly import CoreFoundation
-@_implementationOnly import CFXMLInterface
+@_implementationOnly import CoreImplementation
 
 /*!
     @class XMLDTD
@@ -208,4 +216,4 @@ open class XMLDTD : XMLNode {
     }
 }
 
-
+#endif

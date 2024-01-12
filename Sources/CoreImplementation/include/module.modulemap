@@ -1,0 +1,4 @@
+module CoreImplementation {
+  header "CoreImplementation.h"
+  export *
+}

@@ -11,7 +11,7 @@
 	Copyright (c) 2020 Apple Inc. and the Swift project authors
  */
 
-#include "CFXMLInterface.h"
+#include "CoreImplementation.h"
 #include <libxml/globals.h>
 #include <libxml/xmlerror.h>
 #include <libxml/parser.h>

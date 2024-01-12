@@ -8,7 +8,15 @@
 //
 
 import Foundation
-@_implementationOnly import CFXMLInterface
+
+#if os(Linux)
+import FoundationXML
+public typealias XMLParser = FoundationXML.XMLParser
+#elseif os(OSX)
+public typealias XMLParser = Foundation.XMLParser
+#else
+
+@_implementationOnly import CoreImplementation
 @_implementationOnly import CoreFoundation
 
 extension XMLParser {
@@ -1050,3 +1058,5 @@ func setupXMLParsing() {
         __CFSwiftXMLParserBridge.externalSubset = _NSXMLParserExternalSubset
     }
 }
+
+#endif
